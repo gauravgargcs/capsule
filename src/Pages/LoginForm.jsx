@@ -186,6 +186,7 @@ const LoginForm = () => {
                     <TextField
                       label="Password"
                       name="password"
+                      error={!validatePassword()}
                       onChange={(e) => setpassword(e.target.value)}
                       variant="outlined"
                       value={password}

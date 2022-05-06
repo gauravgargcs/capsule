@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'GothamLight', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -25,4 +25,37 @@ code {
   align-items: center;
   margin-left: 10px;
 
+}
+
+.MuiGrid-root .css-k83ing-MuiTypography-root {
+  color: #ff0000;
+}
+
+.Mui-required:after {
+  content: "*";
+  color: red;
+  position: absolute;
+  right: 0;
+}
+
+
+@font-face {
+  font-family: GothamBook;
+  src: url(../src/fonts/GothamBook.ttf);
+}
+
+
+@font-face {
+  font-family: GothamLight;
+  src: url(../src/fonts/GothamLight.ttf);
+}
+
+@font-face {
+  font-family: GothamBold;
+  src: url(../src/fonts/GothamBold.ttf);
+}
+
+@font-face {
+  font-family: GothamMedium;
+  src: url(../src/fonts/GothamMedium_1.ttf);
 }

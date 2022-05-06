@@ -20,35 +20,30 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const [state, setState] = useState({
-    name: "",
-    email: "",
-    role: 10,
-    password: "",
-  });
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [role, setrole] = useState(10);
+  const [password, setpassword] = useState("");
   useEffect(() => {
-    console.log("password---->", state);
-  }, [state]);
-  const validateEmail = (email) => {
-    return String(state.email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
+    console.log("name---->", name);
+    console.log("email---->", email);
+    console.log("role---->", role);
+    console.log("password---->", password);
+  }, [name, email, role, password]);
+
+  function validateEmail() {
+    const pattern =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const result = pattern.test(email);
+    return result;
+  }
   console.log(validateEmail(), "validateEmail");
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const validatePassword = () => {
     const regularExpression =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
-    if (state.password !== "") {
-      let check = state.password;
+    if (password !== "") {
+      let check = password;
       console.log("Check--->	", check);
       let result = regularExpression.test(check);
       return result;
@@ -148,8 +143,8 @@ const LoginForm = () => {
                       required
                       id="name_text"
                       name="name"
-                      onChange={handleChange}
-                      value={state.name}
+                      onChange={(e) => setname(e.target.value)}
+                      value={name}
                       label="Your Name"
                       defaultValue="Joe Blogs"
                       type="text"
@@ -160,13 +155,13 @@ const LoginForm = () => {
                       required
                       id="email_text"
                       name="email"
-                      onChange={handleChange}
-                      value={state.email}
+                      onChange={(e) => setemail(e.target.value)}
+                      value={email}
                       label="Email Address"
                       defaultValue="Joe.blogs@email.com"
                       type="email"
                     />
-                    {state.email !== "" && !/^\S+@\S+\.\S+$/.test(state.email) && (
+                    {email !== "" && !/^\S+@\S+\.\S+$/.test(email) && (
                       <Typography color="red" variant="caption">
                         Please enter a valid email address
                       </Typography>
@@ -178,8 +173,8 @@ const LoginForm = () => {
                       fullWidth
                       id="role-select"
                       name="role"
-                      onChange={handleChange}
-                      value={state.role}
+                      onChange={(e) => setrole(e.target.value)}
+                      value={role}
                     >
                       <MenuItem value={10}>Developer</MenuItem>
                       <MenuItem value={20}>UI & UX</MenuItem>
@@ -191,9 +186,9 @@ const LoginForm = () => {
                     <TextField
                       label="Password"
                       name="password"
-                      onChange={handleChange}
+                      onChange={(e) => setpassword(e.target.value)}
                       variant="outlined"
-                      value={state.password}
+                      value={password}
                       type={showPassword ? "text" : "password"}
                       required
                       InputProps={{
@@ -213,7 +208,7 @@ const LoginForm = () => {
                         ),
                       }}
                     />
-                    {state.password !== "" && state.password.length < 8 && (
+                    {password !== "" && password.length < 8 && (
                       <Typography variant="caption" color="CaptionText">
                         Minimum of 8 characters
                       </Typography>
@@ -221,16 +216,14 @@ const LoginForm = () => {
                   </Grid>
                   <Button
                     disabled={
-                      state.email == "" ||
-                      state.password == "" ||
-                      state.role == "" ||
-                      validateEmail() == null ||
-                      state.password.length < 8 ||
+                      name == "" ||
+                      email == "" ||
+                      password == "" ||
+                      role == "" ||
+                      validateEmail() == false ||
+                      password.length < 8 ||
                       validatePassword() == false
                     }
-                    onClick={() => {
-                      console.log("state---->", state);
-                    }}
                     type="submit"
                     fullWidth
                     sx={{ background: theme.primary.blueMain, p: 1.5, mt: 4 }}
